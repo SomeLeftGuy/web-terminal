@@ -24,17 +24,17 @@ jobs:
     - name: 'USE gcloud CLI'
       run: 'gcloud info'
     - name: ' Checking shit'
-      run: gcloud config get compute/region
-    - name: 'Get gcloud region'
-      run: 'REGION=$(gcloud config get compute/region)'
-    - name: 'Making sure region is here'
-      run: 'gcloud auth configure-docker europe-$REGION-docker.pkg.dev'
-    - name: 'Authenticate Docker and Gcloud'
-      run: 'gcloud auth print-access-token --impersonate-service-account gchebodang@gmail.com | docker login -u oauth2accesstoken  --password-stdin https://$REGION-docker.pkg.dev'
-    - name: 'Get gcloud region'
+      run: 'gcloud config set compute/region europe-west2'
+    - name: 'Get gcloud region bruh'
       run: 'REGION=$(gcloud config get compute/region)'
     - name: 'Get gcloud project'
       run: 'PROJECT=$(gcloud config get project)'
+    - name: 'Making sure region is here'
+      run: 'gcloud auth configure-docker europe-$REGION-docker.pkg.dev'
+    - name: 'Authenticate Docker and Gcloud'
+      run: cat ${{secrets.GOOGLE_AUTH}} | docker login -u _json_key_base64 --password-stdin \
+            https://$REGION-docker.pkg.dev
+
   
     
     
