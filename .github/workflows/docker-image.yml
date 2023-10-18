@@ -27,11 +27,11 @@ jobs:
       run: 'gcloud config set compute/region europe-west2'
     - name: 'Making sure region is here'
       run: 'gcloud auth configure-docker europe-europe-west2-docker.pkg.dev'
-    - name: 'Authenticate Docker and Gcloud'
-      run: gcloud auth print-access-token \
-          --impersonate-service-account 429161069426-compute@developer.gserviceaccount.com | docker login \
-          -u oauth2accesstoken \
-          --password-stdin https://europe-west2-docker.pkg.dev
+    # - name: 'Authenticate Docker and Gcloud'
+    #   run: gcloud auth print-access-token \
+    #       --impersonate-service-account 429161069426-compute@developer.gserviceaccount.com | docker login \
+    #       -u oauth2accesstoken \
+    #       --password-stdin https://europe-west2-docker.pkg.dev
   
     
     
