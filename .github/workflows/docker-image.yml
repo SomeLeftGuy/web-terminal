@@ -23,15 +23,17 @@ jobs:
     #         --project "$PROJECT_ID"
     - name: 'USE gcloud CLI'
       run: 'gcloud info'
+    - name: 'Get gcloud region'
+      run: 'REGION=$(gcloud config get compute/region)'
     - name: 'Authenticate Docker and Gcloud'
       run: gcloud auth print-access-token \
-           | docker login \
-             -u oauth2accesstoken \
-             --password-stdin https://europe-central2-docker.pkg.dev
+            --impersonate-service-account gchebodang@gmail.com | docker login \
+            -u oauth2accesstoken \
+            --password-stdin https://$REGION-docker.pkg.dev
     - name: 'Get gcloud region'
-      run: REGION=$(gcloud config get compute/region)
+      run: 'REGION=$(gcloud config get compute/region)'
     - name: 'Get gcloud project'
-      run: PROJECT=$(gcloud config get project)
+      run: 'PROJECT=$(gcloud config get project)'
   
     
     
