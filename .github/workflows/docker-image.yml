@@ -25,24 +25,21 @@ jobs:
       run: 'gcloud info'
     - name: ' Checking shit'
       run: 'gcloud config set compute/region europe-west2'
-    - name: 'Get gcloud region bruh'
-      run: 'REGION=$(gcloud config get compute/region)'
-    - name: 'Get gcloud project'
-      run: 'PROJECT=$(gcloud config get project)'
     - name: 'Making sure region is here'
-      run: 'gcloud auth configure-docker europe-$REGION-docker.pkg.dev'
+      run: 'gcloud auth configure-docker europe-europe-west2-docker.pkg.dev'
     - name: 'Authenticate Docker and Gcloud'
-      run: cat ${{secrets.GOOGLE_AUTH}} | docker login -u _json_key_base64 --password-stdin \
-            https://$REGION-docker.pkg.dev
-
+      run: gcloud auth print-access-token \
+          --impersonate-service-account 429161069426-compute@developer.gserviceaccount.com | docker login \
+          -u oauth2accesstoken \
+          --password-stdin https://europe-west2-docker.pkg.dev
   
     
     
     - uses: actions/checkout@v3
     - name: Build and push the Docker image
-      run: docker build . --file amd64/Dockerfile --tag $REGION-docker.pkg.dev/$PROJECT_ID/testrepo/web-counter:$(date +%s)
+      run: docker build . --file amd64/Dockerfile --tag europe-west2-docker.pkg.dev/artful-patrol-313709/testrepo/web-counter:$(date +%s)
     - name: Push image
-      run: docker push $REGION-docker.pkg.dev/$PROJECT/testrepo/web-counter:$(date +%s)
+      run: docker push europe-west2-docker.pkg.dev/artful-patrol-313709/testrepo/web-counter:$(date +%s)
  
  # build:
 
