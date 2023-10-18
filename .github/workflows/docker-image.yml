@@ -18,9 +18,9 @@ jobs:
         credentials_json: '${{secrets.GOOGLE_AUTH}}'
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v1'
-    - name: 'Enable Gcloud api'
-      run: gcloud iam services enable iamcredentials.googleapis.com \
-            --project "$PROJECT_ID"
+    # - name: 'Enable Gcloud api'
+    #   run: gcloud iam services enable iamcredentials.googleapis.com \
+    #         --project "$PROJECT_ID"
     - name: 'USE gcloud CLI'
       run: 'gcloud info'
     - name: 'Authenticate Docker and Gcloud'
@@ -32,18 +32,21 @@ jobs:
       run: REGION=$(gcloud config get compute/region)
     - name: 'Get gcloud project'
       run: PROJECT=$(gcloud config get project)
- 
- 
- build:
-
-    runs-on: ubuntu-latest
-
-    steps:
+  
+    
+    
     - uses: actions/checkout@v3
     - name: Build and push the Docker image
-      run: docker build . --file amd64/Dockerfile --tag $REGION-docker.pkg.dev/$PROJECT/testrepo/web-counter:$(date +%s)
+      run: docker build . --file amd64/Dockerfile --tag $REGION-docker.pkg.dev/$PROJECT_ID/testrepo/web-counter:$(date +%s)
     - name: Push image
       run: docker push $REGION-docker.pkg.dev/$PROJECT/testrepo/web-counter:$(date +%s)
+ 
+ # build:
+
+ #    runs-on: ubuntu-latest
+
+ #    steps:
+    
     
   
  
