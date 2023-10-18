@@ -24,22 +24,22 @@ jobs:
     - name: 'USE gcloud CLI'
       run: 'gcloud info'
     - name: ' Checking shit'
-      run: 'gcloud config set compute/region europe-west2'
+      run: 'gcloud config set compute/region europe-central2'
     - name: 'Making sure region is here'
-      run: 'gcloud auth configure-docker europe-europe-west2-docker.pkg.dev'
+      run: 'gcloud auth configure-docker europe-central2-docker.pkg.dev'
     # - name: 'Authenticate Docker and Gcloud'
     #   run: gcloud auth print-access-token \
     #       --impersonate-service-account 429161069426-compute@developer.gserviceaccount.com | docker login \
     #       -u oauth2accesstoken \
-    #       --password-stdin https://europe-west2-docker.pkg.dev
+    #       --password-stdin https://europe-central2-docker.pkg.dev
   
     
     
     - uses: actions/checkout@v3
     - name: Build and push the Docker image
-      run: docker build . --file amd64/Dockerfile --tag europe-west2-docker.pkg.dev/artful-patrol-313709/testrepo/web-counter:latest
+      run: docker build . --file amd64/Dockerfile --tag europe-central2-docker.pkg.dev/artful-patrol-313709/testrepo/web-counter:latest
     - name: Push image
-      run: docker push europe-west2-docker.pkg.dev/artful-patrol-313709/testrepo/web-counter:latest
+      run: docker push europe-central2-docker.pkg.dev/artful-patrol-313709/testrepo/web-counter:latest
  
  # build:
 
