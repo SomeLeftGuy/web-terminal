@@ -25,7 +25,7 @@ jobs:
       run: 'gcloud info'
     - name: 'Authenticate Docker and Gcloud'
       run: gcloud auth print-access-token \
-             --impersonate-service-account 429161069426-compute@developer.gserviceaccount.com | gocker login \
+           | docker login \
              -u oauth2accesstoken \
              --password-stdin https://europe-central2-docker.pkg.dev
     - name: 'Get gcloud region'
